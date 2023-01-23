@@ -5,8 +5,8 @@
 
 struct Material
 {
-    const Program *program;
-    RID texture;
+    const Program *program = nullptr;
+    RID texture = RID::invalid;
 
     Material() = default;
 

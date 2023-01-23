@@ -7,31 +7,27 @@ class Ground : public Node, public Collider
 {
 private:
     RID quad;
-    Material m;
     Transform2d transform;
     b2Body *body;
+    float speed = 5.0f;
 
 public:
-    Ground()
+    Ground(const glm::vec2 &pos = glm::vec2(0, -5))
     {
         id = Collider::ID::GROUND;
-        glm::vec2 pos = {0, -5};
+        glm::vec2 collider_pos = {0, -5};
         glm::vec2 size = {10, 1};
 
-        m.program = &Program::basic2d;
-        Image::setFlipOnLoad(true);
-        m.texture = GPU::gpu.createTexture("../dino/resource/desk.jpg");
-        GPU::gpu.textureFilter(m.texture, Texture::Filter::NEAREST);
         quad = GPU::gpu.getDeafultQuad();
 
         transform.scale(size);
-        transform.origin = pos;
+        transform.origin = pos + glm::vec2(0, 1.f);
 
         b2BodyDef def;
         b2BodyUserData data;
         data.pointer = (uintptr_t)((Collider *)this);
         def.userData = data;
-        def.position.Set(pos.x, pos.y);
+        def.position.Set(collider_pos.x, collider_pos.y);
 
         b2PolygonShape shape;
         shape.SetAsBox(size.x, size.y);
@@ -42,7 +38,17 @@ public:
     void init() override
     {
     }
-    void update() override {}
+
+    static float spawnPoint;
+    static float destroyPoint;
+
+    void update() override
+    {
+        transform.origin -= glm::vec2(speed * Time::delta_time, 0);
+        if (transform.origin.x <= destroyPoint)
+            transform.origin.x = transform.origin.x - destroyPoint + spawnPoint;
+    }
+
     void draw() override
     {
         Renderer::setMaterial(m);
@@ -50,4 +56,18 @@ public:
 
         Renderer::drawVAO(quad);
     }
+
+    static Material m;
+
+    static void initialize()
+    {
+        Image::setFlipOnLoad(true);
+        m.program = &Program::basic2d;
+        m.texture = GPU::gpu.createTexture("../dino/resource/ground.jpg");
+        GPU::gpu.textureFilter(m.texture, Texture::Filter::NEAREST);
+    }
 };
+
+float Ground::spawnPoint =  20;
+float Ground::destroyPoint = -20;
+Material Ground::m;

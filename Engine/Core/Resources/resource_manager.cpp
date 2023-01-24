@@ -221,14 +221,28 @@ Mesh2d ResourceManager::createQuadMesh(float x, float y)
     return Mesh2d(vertices, indices);
 }
 
-Mesh2d ResourceManager::createQuadMesh(const glm::vec2 &left_bottom, const glm::vec2 &right_top)
+Mesh2d ResourceManager::createQuadMesh(const glm::vec2 &left_bottom, const glm::vec2 &right_top, bool flip)
 {
+    glm::vec2 v[4] =
+        {
+            glm::vec2(0, 0),
+            glm::vec2(0, 1),
+            glm::vec2(1, 0),
+            glm::vec2(1, 1),
+        };
+
+    if(flip)
+    {
+        std::swap(v[0], v[1]);
+        std::swap(v[2], v[3]);
+    }
+
     std::vector<Vertex2d> vertices =
         {
-            Vertex2d(left_bottom, glm::vec2(0, 0)),
-            Vertex2d(glm::vec2(left_bottom.x, right_top.y), glm::vec2(0, 1)),
-            Vertex2d(glm::vec2(right_top.x, left_bottom.y), glm::vec2(1, 0)),
-            Vertex2d(right_top, glm::vec2(1, 1)),
+            Vertex2d(left_bottom, v[0]),
+            Vertex2d(glm::vec2(left_bottom.x, right_top.y), v[1]),
+            Vertex2d(glm::vec2(right_top.x, left_bottom.y), v[2]),
+            Vertex2d(right_top, v[3]),
         };
 
     std::vector<uint32_t> indices =

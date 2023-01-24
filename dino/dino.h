@@ -13,10 +13,10 @@ private:
     b2Body *body;
     RID frames[2];
     int frames_count;
-    float score = 0.0f;
     float score_speed = 1.0f;
 
 public:
+    float score = 0.0f;
     bool game_over = false;
     bool grounded = true;
 
@@ -89,7 +89,6 @@ public:
         {
             time -= change_time;
             nextFrame();
-            spdlog::info("score: {}", (int)score);
         }
     }
 
@@ -98,7 +97,7 @@ public:
         if (((Collider *)other->GetBody()->GetUserData().pointer)->id == Collider::ID::GROUND) // if ground
             grounded = true;
         else
-            game_over = true;
+            game_over = false;
     }
 
     int current_frame;

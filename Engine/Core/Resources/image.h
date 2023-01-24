@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <stdint.h>
+#include <glm/glm.hpp>
 
 class Image
 {
@@ -53,6 +54,7 @@ public:
     void *getData() const { return data; }
     uint32_t getWidth() const { return width; }
     uint32_t getHeight() const { return height; }
+    glm::uvec2 getSize() const { return {width, height}; }
 
     DataType getType() const { return data_type; }
     Format getFormat() const { return format; }

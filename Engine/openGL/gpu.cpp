@@ -20,7 +20,7 @@ void GPU::init()
 {
     default_cube = loadMesh(ResourceManager::createCubeMesh());
     default_quad = loadMesh(ResourceManager::createQuadMesh());
-    default_button_quad = loadMesh(ResourceManager::createQuadMesh(glm::vec2(0, 1), glm::vec2(1, 0)));
+    default_ui_quad = loadMesh(ResourceManager::createQuadMesh(glm::vec2(0, 1), glm::vec2(1, 0), true));
 }
 
 RID GPU::createVertexArray()

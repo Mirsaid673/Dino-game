@@ -10,7 +10,7 @@ class Button
 public:
     friend class Canvas;
 
-    RID quad = GPU::gpu.getDeafultButtonQuad();
+    RID quad = GPU::gpu.getDeafultUIQuad();
     Material material;
     glm::vec2 origin = glm::vec2(0);
     glm::vec2 size = glm::vec2(0);

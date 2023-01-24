@@ -193,6 +193,7 @@ Program Program::basic2d;
 Program Program::colored2d;
 Program Program::skybox;
 Program Program::framebuffer;
+Program Program::text;
 
 void Program::initPrograms()
 {
@@ -207,8 +208,12 @@ void Program::initPrograms()
 
     skybox.create("../Engine/openGL/Program/Shaders/skybox.vert",
                   "../Engine/openGL/Program/Shaders/skybox.frag");
+
     framebuffer.create("../Engine/openGL/Program/Shaders/framebuffer/basic.vert",
                        "../Engine/openGL/Program/Shaders/framebuffer/basic.frag");
+
+    text.create("../Engine/openGL/Program/Shaders/2d/basic.vert",
+                 "../Engine/openGL/Program/Shaders/2d/text.frag");
 }
 
 void Program::destroyPrograms()
@@ -218,4 +223,5 @@ void Program::destroyPrograms()
     colored2d.destroy();
     skybox.destroy();
     framebuffer.destroy();
+    text.destroy();
 }

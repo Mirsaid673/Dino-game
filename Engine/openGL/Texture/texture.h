@@ -61,6 +61,7 @@ public:
 
     GLuint getID() const { return id; }
     const Image &getImage() const { return img; }
+    glm::uvec2 getSize() const { return img.getSize(); }
 
 public:
     GLenum getImageInternalFormat(InternalFormat in_f)

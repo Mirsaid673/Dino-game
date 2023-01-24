@@ -15,6 +15,7 @@ void Application::app_init()
     Time::init();
 
     Renderer::init();
+    TextRenderer::init();
     window.debug();
 
     Renderer::setViewport(window.getSize());
@@ -31,6 +32,7 @@ void Application::app_init()
 void Application::app_determinate()
 {
     Program::destroyPrograms();
+    TextRenderer::determinate();
     window.destroy();
     Window::cleanup();
 }

@@ -6,6 +6,7 @@
 #include "openGL/Texture/cubemap.h"
 #include "openGL/Framebuffer/framebuffer.h"
 #include "openGL/Renderer/renderer.h"
+#include "openGL/Renderer/text_renderer.h"
 #include "Platform/window.h"
 #include "Core/input.h"
 #include "Core/Mesh/material.h"

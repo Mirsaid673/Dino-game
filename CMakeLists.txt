@@ -4,7 +4,7 @@ project(${PROJECT_NAME})
 
 set(EXECUTABLE out)
 set(CXX_STANDARD 17)
-set(LIBRARIES GL GLEW glfw)
+set(LIBRARIES GL GLEW glfw freetype)
 file(GLOB SOURCES "Engine/*/*.cpp" "Engine/*/*/*.cpp" "Engine/*/*.h" "Engine/*/*/*.h")
 set(SOURCES ${SOURCES} main.cpp dino/ground.h dino/game.h dino/dino.h dino/physics.h 
 dino/physics.cpp dino/enemy.h dino/my_shader.h dino/my_shader.cpp dino/bg.h)
@@ -14,7 +14,7 @@ file(GLOB LIBS_INCLUDE_DIRECTORY "Engine/Vendor/*")
 find_package(spdlog REQUIRED)
 
 
-include_directories(${LIBS_INCLUDE_DIRECTORY})
+include_directories(${LIBS_INCLUDE_DIRECTORY} /usr/include/freetype2)
 add_subdirectory(Engine/Vendor/box2d/src)
 add_executable(${EXECUTABLE} ${SOURCES})
 set_target_properties(${EXECUTABLE} PROPERTIES CXX_STANDARD ${CXX_STANDARD})

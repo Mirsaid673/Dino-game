@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "my_shader.h"
 #include "bg.h"
+#include <fstream>
 
 class Game : public Application
 {
@@ -16,10 +17,13 @@ class Game : public Application
     Ground ground1 = Ground({-10, -5});
     Ground ground2 = Ground({10, -5});
     Enemy enemy1 = Enemy({4 + offset * 0, -3});
-    Enemy enemy2 = Enemy({4  + offset * 1, -3});
+    Enemy enemy2 = Enemy({4 + offset * 1, -3});
+    int best = 0;
 
     void init() override
     {
+        loadBest();
+        TextRenderer::loadFont("../dino/resource/ProggyClean.ttf", 48);
         MyShader::initialize();
         Ground::initialize();
         Enemy::initialize();
@@ -34,9 +38,31 @@ class Game : public Application
         scene.addNode(enemy2);
     }
 
+    void draw()
+    {
+        TextRenderer::drawText(std::to_string((int)dino.score), {0, 60}, glm::vec3(0.3), 2);
+        TextRenderer::drawText("best: " + std::to_string(best), {0, 100}, glm::vec3(0.0), 1);
+    }
+
     void determinate() override
     {
         MyShader::determionate();
+    }
+
+    void loadBest()
+    {
+        std::ifstream input_f("best.txt");
+        if (!input_f.is_open())
+            spdlog::error("could not open file: best.txt");
+        input_f >> best;
+    }
+
+    void saveBest(int score)
+    {
+        std::ofstream output_f("best.txt");
+        if (!output_f.is_open())
+            spdlog::error("could not create file: best.txt");
+        output_f << score;
     }
 
     float scale = 10.0f;
@@ -45,13 +71,18 @@ class Game : public Application
     {
         float height = (float)window.getHeight();
         float width = (float)window.getWidth();
-        window.setMaxSize({height * max_aspect+10, height+10});
+        window.setMaxSize({height * max_aspect + 10, height + 10});
         camera2d.ortho(width / height * scale, scale);
     }
 
     void update() override
     {
         if (input.getKeyDown(GLFW_KEY_ESCAPE) || dino.game_over)
-            running = false; 
+        {
+            if((int)dino.score > best)
+                best = (int)dino.score;
+            saveBest(best);
+            running = false;
+        }
     }
 };

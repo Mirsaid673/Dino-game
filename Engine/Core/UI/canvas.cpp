@@ -54,7 +54,6 @@ void Canvas::draw()
         if (not button->enabled)
             continue;
         Renderer::setMaterial(button->material);
-        button->material.program->use();
         button->material.program->setPVM(projection * button->getMatrix());
         Renderer::drawVAO(button->quad);
     }

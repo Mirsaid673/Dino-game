@@ -71,6 +71,7 @@ public:
     float change_time = 0.2f;
     float time = 0.0f;
 
+    bool impulsed = false;
     void update() override
     {
         body->SetAwake(true);
@@ -81,7 +82,13 @@ public:
         if (input.getKeyDown(GLFW_KEY_SPACE) && grounded)
         {
             grounded = false;
+            impulsed = false;
             body->ApplyForceToCenter({0, 825}, true);
+        }
+        if (input.getKeyDown(GLFW_KEY_S) && !impulsed)
+        {
+            impulsed = true;
+            body->ApplyForceToCenter({0, -900}, true);
         }
 
         time += Time::delta_time;

@@ -9,9 +9,9 @@ private:
     RID quad;
     Transform2d transform;
     b2Body *body;
-    float speed = 5.0f;
 
 public:
+    float speed = 5.0f;
     Ground(const glm::vec2 &pos = glm::vec2(0, -5))
     {
         id = Collider::ID::GROUND;

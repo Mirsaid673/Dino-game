@@ -84,5 +84,9 @@ class Game : public Application
             saveBest(best);
             running = false;
         }
+        enemy1.speed += Time::delta_time * 0.1;
+        enemy2.speed += Time::delta_time * 0.1;
+        ground1.speed += Time::delta_time * 0.1;
+        ground2.speed += Time::delta_time * 0.1;
     }
 };

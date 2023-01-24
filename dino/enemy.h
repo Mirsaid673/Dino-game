@@ -12,9 +12,9 @@ private:
     Material m;
     Transform2d transform;
     b2Body *body;
-    float speed = 5.f;
 
 public:
+    float speed = 5.f;
     Enemy(const glm::vec2 &pos = glm::vec2(4, -3))
     {
         id = Collider::ID::ENEMY;

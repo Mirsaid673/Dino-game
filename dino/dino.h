@@ -97,7 +97,7 @@ public:
         if (((Collider *)other->GetBody()->GetUserData().pointer)->id == Collider::ID::GROUND) // if ground
             grounded = true;
         else
-            game_over = false;
+            game_over = true;
     }
 
     int current_frame;
